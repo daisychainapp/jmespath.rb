@@ -11,21 +11,27 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        ruby: [1.9, '2.0', 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, '3.0', 3.1, jruby-9.1, jruby-9.2]
+        ruby: [1.9, '2.0', 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, '3.0', 3.1, 3.2, 3.3, 3.4, jruby-9.1, jruby-9.2, jruby-9.3, jruby-9.4]
         gemfile: [no-deps, json-latest, json-old, json-pure]
         exclude:
-          - ruby: '3.0'
-            gemfile: json-old
-          - ruby: 3.1
-            gemfile: json-old
           - ruby: 1.9
             gemfile: json-latest
           - ruby: 1.9
             gemfile: json-pure
+          - ruby: '3.0'
+            gemfile: json-old
+          - ruby: 3.1
+            gemfile: json-old
+          - ruby: 3.2
+            gemfile: json-old
+          - ruby: 3.3
+            gemfile: json-old
+          - ruby: 3.4
+            gemfile: json-old
 
     steps:
       - name: Setup Ruby
