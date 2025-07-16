@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rake', require: false
 gem 'rspec', '~> 3.0'
+gem 'activesupport', '~> 7.0'
 
 group :docs do
   gem 'yard'

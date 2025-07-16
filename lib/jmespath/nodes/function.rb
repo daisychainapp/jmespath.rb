@@ -1,4 +1,9 @@
 # frozen_string_literal: true
+require 'time'
+require 'active_support'
+require 'active_support/core_ext/integer/time'
+require 'active_support/core_ext/time/calculations'
+
 module JMESPath
   # @api private
   module Nodes
@@ -647,6 +652,256 @@ module JMESPath
       def call(args)
         value = args.first
         value.respond_to?(:to_ary) ? value.to_ary : [value]
+      end
+    end
+
+    class CurrentDatetimeFunction < Function
+      FUNCTIONS['current_datetime'] = self
+
+      def call(args)
+        if args.count == 0
+          Time.now.iso8601
+        else
+          return maybe_raise Errors::InvalidArityError, 'function current_datetime() expects no arguments'
+        end
+      end
+    end
+
+    class SecondsAgoFunction < Function
+      FUNCTIONS['seconds_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.seconds.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function seconds_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function seconds_ago() expects one argument'
+        end
+      end
+    end
+
+    class MinutesAgoFunction < Function
+      FUNCTIONS['minutes_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.minutes.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function minutes_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function minutes_ago() expects one argument'
+        end
+      end
+    end
+
+    class HoursAgoFunction < Function
+      FUNCTIONS['hours_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.hours.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function hours_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function hours_ago() expects one argument'
+        end
+      end
+    end
+
+    class DaysAgoFunction < Function
+      FUNCTIONS['days_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.days.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function days_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function days_ago() expects one argument'
+        end
+      end
+    end
+
+    class WeeksAgoFunction < Function
+      FUNCTIONS['weeks_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.weeks.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function weeks_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function weeks_ago() expects one argument'
+        end
+      end
+    end
+
+    class MonthsAgoFunction < Function
+      FUNCTIONS['months_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.months.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function months_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function months_ago() expects one argument'
+        end
+      end
+    end
+
+    class YearsAgoFunction < Function
+      FUNCTIONS['years_ago'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.years.ago.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function years_ago() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function years_ago() expects one argument'
+        end
+      end
+    end
+
+    class SecondsFromNowFunction < Function
+      FUNCTIONS['seconds_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.seconds.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function seconds_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function seconds_from_now() expects one argument'
+        end
+      end
+    end
+
+    class MinutesFromNowFunction < Function
+      FUNCTIONS['minutes_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.minutes.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function minutes_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function minutes_from_now() expects one argument'
+        end
+      end
+    end
+
+    class HoursFromNowFunction < Function
+      FUNCTIONS['hours_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.hours.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function hours_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function hours_from_now() expects one argument'
+        end
+      end
+    end
+
+    class DaysFromNowFunction < Function
+      FUNCTIONS['days_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.days.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function days_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function days_from_now() expects one argument'
+        end
+      end
+    end
+
+    class WeeksFromNowFunction < Function
+      FUNCTIONS['weeks_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.weeks.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function weeks_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function weeks_from_now() expects one argument'
+        end
+      end
+    end
+
+    class MonthsFromNowFunction < Function
+      FUNCTIONS['months_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.months.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function months_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function months_from_now() expects one argument'
+        end
+      end
+    end
+
+    class YearsFromNowFunction < Function
+      FUNCTIONS['years_from_now'] = self
+
+      def call(args)
+        if args.count == 1
+          value = args.first
+          if Numeric === value
+            value.years.from_now.iso8601
+          else
+            return maybe_raise Errors::InvalidTypeError, 'function years_from_now() expects a numeric value'
+          end
+        else
+          return maybe_raise Errors::InvalidArityError, 'function years_from_now() expects one argument'
+        end
       end
     end
   end
